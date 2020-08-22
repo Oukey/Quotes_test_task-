@@ -1,0 +1,6 @@
+.idea/
+*.pyc
+conf/
+venv/
+*.sqlite3
+local.conf
