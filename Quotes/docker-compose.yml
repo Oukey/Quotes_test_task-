@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    container_name: Quotes
+    volumes:
+      - .:/Quotes
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  celery:
+    build: .
+    command: celery -A Quotes worker -l info
+    volumes:
+      - .:/Quotes
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
