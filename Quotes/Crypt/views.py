@@ -1,9 +1,14 @@
 import requests, datetime
 
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, serializers
 
 from .models import CryptQuotes
-from .serializers import PriceSerializer
+
+
+class PriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CryptQuotes
+        fields = ('price', 'time')
 
 
 class QuotesList(generics.ListCreateAPIView):
